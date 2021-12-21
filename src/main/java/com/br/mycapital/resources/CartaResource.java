@@ -1,8 +1,9 @@
 package com.br.mycapital.resources;
 
+import com.br.mycapital.enums.ClasseCarta;
+import com.br.mycapital.enums.TipoCarta;
 import com.br.mycapital.models.CartaEntity;
 import com.br.mycapital.repositories.CartaRepository;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,7 +26,18 @@ public class CartaResource {
     public CartaEntity findByName(@PathParam("nome") String nome){
         return cartaRepository.getByName(nome);
     }
-
+    @GET
+    @Path("/tipo/{tipo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CartaEntity findByTipo(@PathParam("tipo") TipoCarta tipo){
+        return cartaRepository.getByTipo(tipo);
+    }
+    @GET
+    @Path("/classe/{classe}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CartaEntity findByClasse(@PathParam("classe") ClasseCarta classe){
+        return cartaRepository.getByClasse(classe);
+    }
     @POST
     @Path(("/cadastrar"))
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +53,6 @@ public class CartaResource {
         }
         return Response.status(Response.Status.BAD_REQUEST).entity(carta).build();
     }
-
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
